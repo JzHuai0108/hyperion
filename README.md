@@ -66,6 +66,55 @@ factor graphs. Currently, three executables are provided: one for demonstrating 
 [sample benchmark](benchmarks/benchmark_results.xml) run is included for reference, detailing the metrics reported
 in the paper.
 
+<h2> Build </h2>
+
+Tested in Ubuntu 22.04.
+
+1. install ros2 humble, colcon, ament-cmake-catch2, libabsl-dev, libgflags-dev, python3-catkin-pkg
+
+2. build and install locally glog, ceres solver from source
+
+3. build and install locally symforce 0.9.0 from source in conda venv test_env
+
+```
+cd symforce-0.9.0
+pip install -r dev_requirements.txt
+# May need to specify some package version
+# pip install skymarshal==0.9.0
+# pip install jinja2==3.1.2
+# pip install click==8.1.3
+# pip install flask==3.0.3
+
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/home/pi/Documents/slam_devel
+make -j4
+make install
+```
+
+4. pip install catkin_pkg in test_env
+
+5. build hyperion
+
+```
+conda activate test_env
+source /opt/ros/humble/setup.bash
+cd hyperion_ws
+colcon build --cmake-args -DCeres_DIR=/home/pi/Documents/slam_devel/lib/cmake/Ceres -Dglog_DIR=/home/pi/Documents/slam_devel/lib/cmake/glog
+```
+
+6. run app
+```
+cd hyperion_ws
+source install/setup.bash
+./build/hyperion/apps/pose3_absolute/main_pose3_absolute
+```
+
+7. debug in qtcreator
+```
+open the build/hyperion/apps folder in qtcreator
+```
+
 <br/><br/>
 
 <div align="center">

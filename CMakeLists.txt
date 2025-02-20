@@ -33,7 +33,11 @@ ament_export_libraries(${PROJECT_NAME}_export HAS_LIBRARY_TARGET)
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-        "/usr/local/include/sym")
+        "/home/pi/Documents/slam_devel/include/sym"
+        # "/usr/local/include/sym"
+        )
+
+link_directories("/home/pi/Documents/slam_devel/lib")
 
 set(PROJECT_LIBRARIES
         absl::base

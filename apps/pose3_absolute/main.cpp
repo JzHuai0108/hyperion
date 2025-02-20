@@ -115,7 +115,9 @@ auto main(const int argc, char* argv[]) -> int {
   ::ceres::Solver::Summary ceres_summary;
   ceres_options.minimizer_progress_to_stdout = true;
   ceres_options.logging_type = ::ceres::LoggingType::PER_MINIMIZER_ITERATION;
+  LOG(INFO) << "Running ceres solver";
   ::ceres::Solve(ceres_options, &problem, &ceres_summary);
+  LOG(INFO) << "Done ceres solver";
   LOG(INFO) << ceres_summary.FullReport();
 
   SolverOptions solver_options;
